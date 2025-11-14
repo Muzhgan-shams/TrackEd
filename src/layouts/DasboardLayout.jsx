@@ -16,6 +16,7 @@ import {
   TbLayoutSidebarLeftExpand,
   TbLayoutSidebarLeftCollapse,
 } from "react-icons/tb";
+import { FaUsersLine } from "react-icons/fa6";
 
 export default function DashboardLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // mobile toggle
@@ -32,19 +33,20 @@ export default function DashboardLayout() {
   const menu = [
     { name: "Dashboard", icon: <MdOutlineDashboard />, path: "/dashboard" },
     { name: "Classes", icon: <MdOutlineClass />, path: "/classes" },
-    {
-      name: "Departments",
-      icon: <HiOutlineOfficeBuilding />,
-      path: "/departments",
-    },
+    { name: "Students", icon: <FaUsersLine />, path: "/students" },
+    // {
+    //   name: "Departments",
+    //   icon: <HiOutlineOfficeBuilding />,
+    //   path: "/departments",
+    // },
     { name: "Subjects", icon: <MdOutlineLibraryBooks />, path: "/subjects" },
     { name: "Library", icon: <PiStudent />, path: "/library" },
     { name: "Holidays", icon: <MdOutlineLibraryBooks />, path: "/holidays" },
   ];
 
   const others = [
-    { name: "Settings", icon: <FiSettings />, path: "/settings" },
-    { name: "Accounts", icon: <AiOutlineUser />, path: "/accounts" },
+    { name: "Settings", icon: <FiSettings />, path: "/setting" },
+    { name: "Accounts", icon: <AiOutlineUser />, path: "/account" },
     { name: "Help", icon: <FiHelpCircle />, path: "/help" },
   ];
 
@@ -52,7 +54,7 @@ export default function DashboardLayout() {
     <div className="flex min-h-screen bg-[#f7f8fc] text-gray-700 relative">
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static top-0 left-0 h-screen z-40 bg-white shadow-sm border-r border-gray-200 flex flex-col transition-all duration-300 ${
+        className={`fixed  top-0 left-0 h-screen z-40 bg-white shadow-sm border-r border-gray-200 flex flex-col transition-all duration-300 ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         } ${isSidebarCollapsed ? "lg:w-20" : "lg:w-60"} w-60`}
       >
@@ -115,10 +117,13 @@ export default function DashboardLayout() {
             </NavLink>
           ))}
           <div className="p-5 border-t border-gray-200">
-            <button className="flex items-center gap-2 text-red-500 hover:text-red-600">
+            <NavLink
+              to="logout"
+              className="flex items-center gap-2 text-red-500 hover:text-red-600"
+            >
               <MdLogout />
               {!isSidebarCollapsed && "Logout"}
-            </button>
+            </NavLink>
           </div>
         </nav>
       </aside>
@@ -132,7 +137,11 @@ export default function DashboardLayout() {
       )}
 
       {/* Main content */}
-      <div className={`flex-1 flex flex-col `}>
+      <div
+        className={`flex-1 flex flex-col ${
+          isSidebarCollapsed ? "lg:ml-20" : "lg:ml-60"
+        } `}
+      >
         {/* Topbar */}
         <header className="h-20 flex items-center justify-between px-6 bg-white border-b border-gray-200">
           <button
